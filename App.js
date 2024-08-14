@@ -1,11 +1,12 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
+import Navigator from "./src/navigation/Navigator";
+import Header from './src/components/Header/Header';
 
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>FlavourScout</Text>
-      <StatusBar style="auto" />
+      <Header />
+      <Navigator />
     </View>
   );
 }
@@ -13,8 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#FFFFFF',
     alignItems: 'center',
-    justifyContent: 'center',
   },
 });

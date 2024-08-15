@@ -1,45 +1,39 @@
-import React, { useEffect, useState } from 'react';
-import { View, Text } from "react-native";
+import React, { useState, useEffect } from 'react';
+import { View, Text } from 'react-native';
 import PropTypes from 'prop-types';
-export default function RecipeDetailScreen({ route }) {
+import { generateRecipe } from '../utilities/recipes/recipeUtils';
 
-    const { recipeID } = route.params; // Example usage of route.params
-    const [recipe, setRecipe] = useState([])
-
-    useEffect(() => {
-        generateSingleRecipeById(recipeID);
-    }, []);
-
-    function generateSingleRecipeById(incomingID) {
-        console.log(incomingID)
-        const fetchAddress = `www.themealdb.com/api/json/v1/1/lookup.php?i=${incomingID}`;
-        console.log(fetchAddress)
-
-        fetch(fetchAddress)
-            .then(response => response.json())
-            .then(result => setRecipe(result))
-            .catch(error => console.error('Error fetching recipes:', error));
-    }
+export default function RecipeDetailScreen({ route, navigation }) {
+    const { recipeID } = route.params;
+    const [recipe, setRecipe] = useState(null); // Initialize with null to handle loading state
 
     useEffect(() => {
-        console.log("hell", recipe)
-    }, [recipe])
-
-    RecipeDetailScreen.propTypes = {
-        route: PropTypes.shape({
-            params: PropTypes.shape({
-                recipeID: PropTypes.string.isRequired, // Adjust the type according to your actual data
-            }).isRequired,
-        }).isRequired,
-    };
+        generateRecipe(recipeID, (fetchedRecipe) => {
+            setRecipe(fetchedRecipe);
+            navigation.setOptions({ title: fetchedRecipe.strMeal }); // Set the header title to recipe name
+        });
+    }, [recipeID, navigation]);
 
     return (
         <View>
-            <Text>WHAAAAT</Text>
-            <Text>Recipe ID: {recipeID}</Text>
-
+            {recipe ? (
+                <>
+                    <Text>{recipe.strMeal}</Text>
+                    <Text>Recipe ID: {recipeID}</Text>
+                </>
+            ) : (
+                <Text>Loading...</Text>
+            )}
         </View>
     );
-
-
 }
+
+// Proptype validation
+RecipeDetailScreen.propTypes = {
+    route: PropTypes.shape({
+        params: PropTypes.shape({
+            recipeID: PropTypes.string.isRequired,
+        }).isRequired,
+    }).isRequired,
+    navigation: PropTypes.object.isRequired,
+};

@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import SearchBtn from '../components/SearchBtn/SearchBtn';
@@ -17,13 +17,17 @@ export default function Navigator() {
                         name="FlavourScout"
                         component={HomeScreen}
                         options={{
+                            headerTitle: () => (
+                                <Text style={styles.customTitle}>
+                                    FlavourScout
+                                </Text>
+                            ),
                             headerTitleAlign: 'left', // Align title to the left
                             headerStyle: {
-                                backgroundColor: '#FF6347', // Header background color
-                            },
-                            headerTitleStyle: {
-                                fontSize: 20, // Set the font size here
-                                fontWeight: 'bold', // Optionally set font weight
+                                backgroundColor: '#408558', // Header background color
+                                shadowColor: 'transparent', // Remove shadow on iOS
+                                elevation: 0, // Remove shadow on Android
+                                borderBottomWidth: 0, // Remove bottom border if any
                             },
                             headerRight: () => (
                                 <View style={styles.searchIconContainer}>
@@ -53,7 +57,13 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     searchIconContainer: {
-
         marginRight: 10,
+        marginBottom: 3,
+    },
+    customTitle: {
+        fontSize: 20, // Set the font size here
+        fontWeight: 'bold', // Optionally set font weight
+        marginLeft: 4, // Add margin left to the title
+        color: '#000000', // Optionally change the color of the title
     },
 });

@@ -1,31 +1,24 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
+import { generateRecipes } from '../utilities/recipes/recipeUtils';
 
 export default function HomeScreen({ navigation }) {
 
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        generateRecipes("g");
+        generateRecipes("g", setRecipes);
     }, []);
 
-    function generateRecipes(incomingSearchQuery) {
-        const fetchAddress = `https://www.themealdb.com/api/json/v1/1/search.php?f=${incomingSearchQuery}`;
-        fetch(fetchAddress)
-            .then(response => response.json())
-            .then(result => setRecipes(result.meals))
-            .catch(error => console.error('Error fetching recipes:', error));
-    }
-
-
-
     function onPressOfSingleRecipe(recipeID) {
+        // Navigate to RecipeDetail screen and send it a param
         navigation.navigate('RecipeDetail', { recipeID });
     }
 
-    const renderRecipe = ({ item }) => (
-        <View style={styles.allRecipesWrapper}>
+    // Render function with index parameter
+    const renderRecipe = ({ item, index }) => (
+        <View style={[styles.allRecipesWrapper, index === 0 && styles.firstRecipe]}>
             <Pressable
                 onPress={() => onPressOfSingleRecipe(item.idMeal)}
                 style={styles.eachRecipeWrapper}
@@ -44,7 +37,6 @@ export default function HomeScreen({ navigation }) {
     );
 
     return (
-
         <View style={styles.container}>
             <FlatList
                 data={recipes}
@@ -63,12 +55,15 @@ HomeScreen.propTypes = {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FF7F50', // Coral
+        backgroundColor: '#FAE5C7', // beige
     },
     allRecipesWrapper: {
         padding: 10,
         marginBottom: 10,
         borderRadius: 8,
+    },
+    firstRecipe: {
+        marginTop: 20, // Add margin top for the first item
     },
     eachRecipeWrapper: {
         backgroundColor: '#008000', // Green
@@ -92,7 +87,7 @@ const styles = StyleSheet.create({
         borderTopRightRadius: 8,
     },
     recipeTitleWrapper: {
-        backgroundColor: '#FFFFFF',
+        backgroundColor: '#408558',
         width: '100%',
         justifyContent: 'center',
         alignItems: 'center',

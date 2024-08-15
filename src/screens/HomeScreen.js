@@ -1,6 +1,6 @@
-// HomeScreen.js
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
+import PropTypes from 'prop-types';
 
 export default function HomeScreen({ navigation }) {
 
@@ -18,6 +18,12 @@ export default function HomeScreen({ navigation }) {
             .catch(error => console.error('Error fetching recipes:', error));
     }
 
+
+
+    function onPressOfSingleRecipe(recipeID) {
+        navigation.navigate('RecipeDetail', { recipeID });
+    }
+
     const renderRecipe = ({ item }) => (
         <View style={styles.allRecipesWrapper}>
             <Pressable
@@ -26,7 +32,7 @@ export default function HomeScreen({ navigation }) {
             >
                 <View style={styles.recipeImageWrapper}>
                     <Image
-                        source={{ uri: item.strMealThumb }} // Corrected URI usage
+                        source={{ uri: item.strMealThumb }}
                         style={styles.recipeImage}
                     />
                 </View>
@@ -37,11 +43,8 @@ export default function HomeScreen({ navigation }) {
         </View>
     );
 
-    function onPressOfSingleRecipe(recipeID) {
-        navigation.navigate('RecipeDetail', { recipeID });
-    }
-
     return (
+
         <View style={styles.container}>
             <FlatList
                 data={recipes}
@@ -51,6 +54,11 @@ export default function HomeScreen({ navigation }) {
         </View>
     );
 }
+
+// Define prop types for the component
+HomeScreen.propTypes = {
+    navigation: PropTypes.object.isRequired, // Ensure navigation prop is an object and required
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -75,6 +83,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         height: 300,
         width: '100%',
+        borderRadius: 8,
     },
     recipeImage: {
         width: '100%',

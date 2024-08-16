@@ -10,7 +10,7 @@ export default function RecipeDetailScreen({ route, navigation }) {
     const [allIngredientKeysNotNull, setAllIngredientKeysNotNull] = useState(null);
     const [ingredients, setIngredients] = useState([]);
     const [allMeasurementKeysNotNull, setAllMeasurementKeysNotNull] = useState(null);
-    const [measurements, setMeasurements] = useState(null);
+    const [measurements, setMeasurements] = useState([]);
 
     // Change header name whenever recipeID is changed
     useEffect(() => {
@@ -23,41 +23,55 @@ export default function RecipeDetailScreen({ route, navigation }) {
     // Identify all recipe keys
     useEffect(() => {
         if (recipe) {
-            // Get all the keys from the selected recipe
             setAllRecipeKeys(Object.keys(recipe));
         }
     }, [recipe]);
 
-    /*=========================*/
-    /*==== GET INGREDIENTS ====*/
-    /*=========================*/
+    /*==============================================*/
+    /*==== GET INGREDIENTS AND MEASUREMENT KEYS ====*/
+    /*==============================================*/
 
-    // Filter ingredients keys, not null, from all the recipe's keys
     useEffect(() => {
         if (allRecipeKeys) {
             setAllIngredientKeysNotNull(
                 allRecipeKeys.filter(key => key.startsWith('strIngredient') && recipe[key])
             );
+
+            setAllMeasurementKeysNotNull(
+                allRecipeKeys.filter(key => key.startsWith('strMeasure') && recipe[key])
+            );
         }
     }, [allRecipeKeys]);
 
-    //Get all values from recipe for relevant ingredient keys
+    /*=========================*/
+    /*==== GET INGREDIENTS ====*/
+    /*=========================*/
+
     useEffect(() => {
         if (allIngredientKeysNotNull) {
             setIngredients(
-                allIngredientKeysNotNull.map(key => ({
-                    key,
-                    value: recipe[key]
-                }))
+                allIngredientKeysNotNull.map(key => recipe[key])
             );
         }
     }, [allIngredientKeysNotNull]);
 
+    /*===========================*/
+    /*==== GET MEASUREMENTS  ====*/
+    /*===========================*/
 
-    /*==============================================*/
-    /*==== GET MEASUREMENTS FOR EACH INGREDIENT ====*/
-    /*==============================================*/
+    useEffect(() => {
+        if (allMeasurementKeysNotNull) {
+            setMeasurements(
+                allMeasurementKeysNotNull.map(key => recipe[key])
+            );
+        }
+    }, [allMeasurementKeysNotNull]);
 
+    // Combine measurements and ingredients into pairs
+    const combinedData = ingredients.map((ingredient, index) => ({
+        ingredient,
+        measurement: measurements[index] || '' // Handle case where measurements might not match ingredients
+    }));
 
     return (
         <ScrollView contentContainerStyle={styles.container}>
@@ -72,11 +86,12 @@ export default function RecipeDetailScreen({ route, navigation }) {
                         </View>
                         <View style={styles.detailsContainer}>
                             <View style={styles.ingredientsContainer}>
-                                <Text style={styles.ingredientsTitle}>Ingredients:</Text>
-                                {ingredients.length > 0 ? (
-                                    ingredients.map((ingredient, index) => (
-                                        <View key={index} style={styles.ingredientItem}>
-                                            <Text style={styles.ingredientText}>{ingredient.value}</Text>
+                                <Text style={styles.ingredientsTitle}>Measurements and Ingredients:</Text>
+                                {combinedData.length > 0 ? (
+                                    combinedData.map((item, index) => (
+                                        <View key={index} style={styles.itemRow}>
+                                            <Text style={styles.measurementText}>{item.measurement}</Text>
+                                            <Text style={styles.ingredientText}>{item.ingredient}</Text>
                                         </View>
                                     ))
                                 ) : (
@@ -132,26 +147,27 @@ const styles = StyleSheet.create({
     ingredientsContainer: {
         marginBottom: 16,
     },
-    recipeTitle: {
-        fontSize: 24,
-        fontWeight: 'bold',
-    },
-    recipeID: {
-        fontSize: 16,
-        marginBottom: 8,
-    },
     ingredientsTitle: {
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 8,
     },
-    ingredientItem: {
-        padding: 8,
+    itemRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        paddingVertical: 8,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
+        borderBottomColor: '#ddd', // Color of the bottom border
+    },
+    measurementText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+        flexShrink: 0, // Prevent text from shrinking
+        marginRight: 4, // Add space between measurement and ingredient
     },
     ingredientText: {
-        fontSize: 16,
+        fontSize: 14,
+        flexShrink: 0, // Prevent text from shrinking
     },
     instructionsContainer: {
         // Add styles for instructions container

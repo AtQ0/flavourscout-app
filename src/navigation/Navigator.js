@@ -42,6 +42,11 @@ export default function Navigator() {
                         options={{
                             headerBackTitleVisible: false, // Hide previous screen's title
                             headerTintColor: '#000000', // Change back arrow color
+                            headerStyle: {
+                                shadowColor: 'transparent', // Remove shadow on iOS
+                                elevation: 0, // Remove shadow on Android
+                                borderBottomWidth: 0, // Remove bottom border if any
+                            },
                         }}
                     />
                 </Stack.Navigator>
@@ -61,7 +66,7 @@ const styles = StyleSheet.create({
         marginBottom: 3,
     },
     customTitle: {
-        fontSize: 20, // Set the font size here
+        fontSize: 25, // Set the font size here
         fontWeight: 'bold', // Optionally set font weight
         marginLeft: 4, // Add margin left to the title
         color: '#000000', // Optionally change the color of the title

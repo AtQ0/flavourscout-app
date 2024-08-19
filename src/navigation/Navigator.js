@@ -18,16 +18,17 @@ export default function Navigator() {
                         component={HomeScreen}
                         options={{
                             headerTitle: () => (
-                                <Text style={styles.customTitle}>
-                                    FlavourScout
+                                <Text style={styles.headerTitle}>
+                                    <Text style={styles.flavour}>Flavour</Text>
+                                    <Text style={styles.scout}>Scout</Text>
                                 </Text>
                             ),
-                            headerTitleAlign: 'left', // Align title to the left
+                            headerTitleAlign: 'left',
                             headerStyle: {
-                                backgroundColor: '#408558', // Header background color
-                                shadowColor: 'transparent', // Remove shadow on iOS
-                                elevation: 0, // Remove shadow on Android
-                                borderBottomWidth: 0, // Remove bottom border if any
+                                backgroundColor: '#408558',
+                                shadowColor: 'transparent',
+                                elevation: 0,
+                                borderBottomWidth: 0,
                             },
                             headerRight: () => (
                                 <View style={styles.searchIconContainer}>
@@ -40,18 +41,18 @@ export default function Navigator() {
                         name="RecipeDetail"
                         component={RecipeDetailScreen}
                         options={{
-                            headerBackTitleVisible: false, // Hide previous screen's title
-                            headerTintColor: '#000000', // Change back arrow color
+                            headerBackTitleVisible: false,
+                            headerTintColor: '#000000',
                             headerStyle: {
                                 backgroundColor: '#408558',
-                                shadowColor: 'transparent', // Remove shadow on iOS
-                                elevation: 0, // Remove shadow on Android
-                                borderBottomWidth: 0, // Remove bottom border if any
+                                shadowColor: 'transparent',
+                                elevation: 0,
+                                borderBottomWidth: 0,
                             },
                             headerTitleStyle: {
-                                fontSize: 19, // Change the font size of the title
-                                fontWeight: 'bold', // Optional: set font weight
-                                color: '#000000', // Optional: change the color of the title text
+                                fontSize: 19,
+                                fontWeight: 'bold',
+                                color: '#000000',
                             },
                         }}
                     />
@@ -64,17 +65,24 @@ export default function Navigator() {
 const styles = StyleSheet.create({
     wrapper: {
         flex: 1,
-        backgroundColor: '#FFFFFF', // Optional: add a background color
+        backgroundColor: '#FFFFFF',
         width: '100%',
     },
     searchIconContainer: {
         marginRight: 10,
         marginBottom: 3,
     },
-    customTitle: {
-        fontSize: 25, // Set the font size here
-        fontWeight: 'bold', // Optionally set font weight
-        marginLeft: 4, // Add margin left to the title
-        color: '#000000', // Optionally change the color of the title
+    headerTitle: {
+        fontFamily: 'slate',
+        fontSize: 25,
+        fontWeight: 'bold',
+        marginLeft: 4,
+        flexDirection: 'row', // Ensure text stays in one line
+    },
+    flavour: {
+        color: '#000000',
+    },
+    scout: {
+        color: '#FAE5C7', // Example color, adjust as needed
     },
 });

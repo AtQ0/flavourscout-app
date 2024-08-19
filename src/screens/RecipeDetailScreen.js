@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#FAE5C7',
     },
     imageContainer: {
-        backgroundColor: '#ADD8E6',
+        backgroundColor: '#FAE5C7',
         width: '100%',
         height: 350,
         marginBottom: 16,

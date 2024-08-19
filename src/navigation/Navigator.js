@@ -43,9 +43,15 @@ export default function Navigator() {
                             headerBackTitleVisible: false, // Hide previous screen's title
                             headerTintColor: '#000000', // Change back arrow color
                             headerStyle: {
+                                backgroundColor: '#408558',
                                 shadowColor: 'transparent', // Remove shadow on iOS
                                 elevation: 0, // Remove shadow on Android
                                 borderBottomWidth: 0, // Remove bottom border if any
+                            },
+                            headerTitleStyle: {
+                                fontSize: 19, // Change the font size of the title
+                                fontWeight: 'bold', // Optional: set font weight
+                                color: '#000000', // Optional: change the color of the title text
                             },
                         }}
                     />

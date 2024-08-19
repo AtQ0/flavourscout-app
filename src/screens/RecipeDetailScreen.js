@@ -74,7 +74,7 @@ export default function RecipeDetailScreen({ route, navigation }) {
     }));
 
     return (
-        <ScrollView contentContainerStyle={styles.container}>
+        <ScrollView style={styles.container} contentContainerStyle={styles.contentContainer}>
             <View style={styles.singleRecipeWrapper}>
                 {recipe ? (
                     <>
@@ -100,6 +100,8 @@ export default function RecipeDetailScreen({ route, navigation }) {
                             </View>
                             <View style={styles.instructionsContainer}>
                                 {/* Add instructions or other details here */}
+                                <Text style={styles.instructionsTitle}>Instructions</Text>
+                                <Text style={styles.instructionText}>{recipe.strInstructions}</Text>
                             </View>
                         </View>
                     </>
@@ -108,6 +110,7 @@ export default function RecipeDetailScreen({ route, navigation }) {
                 )}
             </View>
         </ScrollView>
+
     );
 }
 
@@ -123,13 +126,16 @@ RecipeDetailScreen.propTypes = {
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
+        backgroundColor: '#FAE5C7', // Apply background color to the entire scroll view
+    },
+    contentContainer: {
         flexGrow: 1,
-        backgroundColor: '#FAE5C7', // beige
         justifyContent: 'center',
     },
     singleRecipeWrapper: {
-        backgroundColor: '#FFFFFF',
         padding: 16,
+        backgroundColor: '#FAE5C7',
     },
     imageContainer: {
         backgroundColor: '#ADD8E6',
@@ -145,7 +151,7 @@ const styles = StyleSheet.create({
         flex: 1,
     },
     ingredientsContainer: {
-        marginBottom: 16,
+        marginBottom: 26,
     },
     ingredientsTitle: {
         fontSize: 18,
@@ -157,7 +163,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         paddingVertical: 8,
         borderBottomWidth: 1,
-        borderBottomColor: '#ddd', // Color of the bottom border
+        borderBottomColor: '#000000', // Color of the bottom border
     },
     measurementText: {
         fontSize: 14,
@@ -170,6 +176,15 @@ const styles = StyleSheet.create({
         flexShrink: 0, // Prevent text from shrinking
     },
     instructionsContainer: {
-        // Add styles for instructions container
+        marginBottom: 26,
+    },
+    instructionsTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
+        marginBottom: 8,
+    },
+    instructionText: {
+        fontSize: 14,
+
     },
 });

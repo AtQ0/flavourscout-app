@@ -13,7 +13,6 @@ export function generateRecipe(recipeID, setRecipe) {
     fetch(fetchAddress)
         .then(response => response.json())
         .then(result => {
-            console.log('Fetched result:', result); // Debugging line
             if (result && result.meals && result.meals.length > 0) {
                 setRecipe(result.meals[0]);
             } else {

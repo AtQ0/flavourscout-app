@@ -4,7 +4,7 @@ import { Pressable, StyleSheet } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
 import { useNavigation } from '@react-navigation/native';
 
-export default function SearchBtn(props) {
+export default function SearchBtn() {
 
     const navigation = useNavigation();
 
@@ -28,7 +28,7 @@ export default function SearchBtn(props) {
                 strokeWidth="2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                {...props}
+
             >
                 <Circle cx="11" cy="11" r="8" />
                 <Line x1="21" y1="21" x2="16.65" y2="16.65" />

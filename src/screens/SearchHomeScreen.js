@@ -1,7 +1,7 @@
 import { StyleSheet, Pressable, ScrollView, Text, View } from "react-native";
 
 
-export default function SearchScreen() {
+export default function SearchHomeScreen() {
 
     return (
 
@@ -76,7 +76,7 @@ export default function SearchScreen() {
             </View>
 
             <View style={styles.recipesOtherContainer}>
-                <Text style={styles.recipesOtherTitle}>Vegan recipes</Text>
+                <Text style={styles.recipesOtherTitle}>Other recipes</Text>
                 <ScrollView horizontal>
                     <Pressable
                         onPress={() => { alert('Ett') }}
@@ -118,7 +118,7 @@ export default function SearchScreen() {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FF69B4',
+        backgroundColor: '#FAE5C7', //Beige
         paddingTop: 40,
     },
     pressableRecipe: {

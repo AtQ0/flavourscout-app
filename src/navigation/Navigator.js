@@ -1,15 +1,20 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import SearchBtn from '../components/SearchBtn/SearchBtn';
-import SearchScreen from '../screens/SearchScreen';
+import SearchHomeScreen from '../screens/SearchHomeScreen';
+import SearchResultScreen from '../screens/SearchResultScreen';
+import SearchHeader from '../components/searchHeader/SearchHeader';
 
 const Stack = createStackNavigator();
 
 export default function Navigator() {
+
+
+
     return (
         <View style={styles.wrapper}>
             <NavigationContainer>
@@ -59,34 +64,22 @@ export default function Navigator() {
                     />
                     <Stack.Screen
                         name="SearchScreen"
-                        component={SearchScreen}
+                        component={SearchHomeScreen}
                         options={{
-                            headerTitle: () => (
-                                <TextInput
-                                    style={styles.searchInput}
-                                    placeholder="Search on FlavourScout"
-                                    placeholderTextColor="#333333"
-                                    returnKeyType="search" // This will change the return key to "Search"
-                                    onSubmitEditing={(event) => {
-                                        // Handle the search action when the "Search" button is pressed
-                                        const searchTerm = event.nativeEvent.text;
-                                        console.log('Search term:', searchTerm);
-                                        // Add navigation or search logic here
-                                    }}
-                                    onChange={(event) => {
-                                        const searchTerm = event.nativeEvent.text;
-                                        console.log('Typed in searchTerm: ', searchTerm)
-                                    }}
-                                />
-
-                            ),
-
+                            headerTitle: () => <SearchHeader />, // Use custom header
                             headerTintColor: '#000000',
-                            headerBackTitleVisible: false, // Hides the back button title
+                            headerBackTitleVisible: false,
                             headerStyle: {
                                 backgroundColor: '#408558',
+                                shadowColor: 'transparent',
+                                elevation: 0,
+                                borderBottomWidth: 0,
                             },
                         }}
+                    />
+                    <Stack.Screen
+                        name="WHAAT"
+                        component={SearchResultScreen}
                     />
                 </Stack.Navigator>
             </NavigationContainer>
@@ -117,13 +110,5 @@ const styles = StyleSheet.create({
     scout: {
         color: '#FAE5C7', // Example color, adjust as needed
     },
-    searchInput: {
-        height: 35,
-        borderColor: '#000000',
-        borderWidth: 1,
-        borderRadius: 20,
-        paddingHorizontal: 10,
-        width: 330, // Adjust width as needed
-        color: '#000',
-    },
+
 });

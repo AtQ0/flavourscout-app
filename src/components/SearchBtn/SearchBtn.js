@@ -2,11 +2,14 @@
 import React from 'react';
 import { Pressable, StyleSheet } from 'react-native';
 import Svg, { Circle, Line } from 'react-native-svg';
+import { useNavigation } from '@react-navigation/native';
 
 export default function SearchBtn(props) {
 
+    const navigation = useNavigation();
+
     function onPressOfSearchIcon() {
-        alert("yeah")
+        navigation.navigate('SearchScreen')
     }
 
     return (

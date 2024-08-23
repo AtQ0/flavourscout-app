@@ -9,9 +9,8 @@ export default function SearchHeader() {
 
     // Function to handle changes in the text input
     const handleSearchChange = (text) => {
-        setSearchTerm(text); // Update local state with the new search term
-        // Navigate to SearchResultScreen with the search term as a parameter
-        navigation.navigate('WHAAT', { searchTerm: text });
+        setSearchTerm(text); // Update local state with the new search term is made
+        navigation.navigate('SearchScreen', { searchTerm: text }); // Pass searchTerm as parameter
     };
 
     return (

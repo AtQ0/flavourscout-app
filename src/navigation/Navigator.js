@@ -5,9 +5,9 @@ import { View, Text, StyleSheet } from 'react-native';
 import HomeScreen from '../screens/HomeScreen';
 import RecipeDetailScreen from '../screens/RecipeDetailScreen';
 import SearchBtn from '../components/SearchBtn/SearchBtn';
-import SearchHomeScreen from '../screens/SearchHomeScreen';
-import SearchResultScreen from '../screens/SearchResultScreen';
-import SearchHeader from '../components/searchHeader/SearchHeader';
+import SearchScreen from '../screens/SearchScreen';
+import SearchHeader from '../components/SearchHeader/SearchHeader';
+
 
 const Stack = createStackNavigator();
 
@@ -64,7 +64,7 @@ export default function Navigator() {
                     />
                     <Stack.Screen
                         name="SearchScreen"
-                        component={SearchHomeScreen}
+                        component={SearchScreen}
                         options={{
                             headerTitle: () => <SearchHeader />, // Use custom header
                             headerTintColor: '#000000',
@@ -76,10 +76,6 @@ export default function Navigator() {
                                 borderBottomWidth: 0,
                             },
                         }}
-                    />
-                    <Stack.Screen
-                        name="WHAAT"
-                        component={SearchResultScreen}
                     />
                 </Stack.Navigator>
             </NavigationContainer>

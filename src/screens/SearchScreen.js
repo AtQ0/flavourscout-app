@@ -1,19 +1,34 @@
-import React from 'react';
-import { StyleSheet, Pressable, ScrollView, Text, View } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { StyleSheet, ScrollView, Text, View, Pressable } from 'react-native';
 import { useRoute } from '@react-navigation/native';
+import { generateRecipesByAWord } from '../utilities/recipes/recipeUtils';
 
 export default function SearchScreen() {
-    // Get the searchTerm from route params
     const route = useRoute();
     const { searchTerm } = route.params || {}; // Default to empty if not found
+
+    const [recipes, setRecipes] = useState([]);
+
+    useEffect(() => {
+        if (searchTerm) {
+            generateRecipesByAWord(searchTerm, setRecipes);
+        }
+    }, [searchTerm]);
 
     return (
         <ScrollView style={styles.container}>
             {searchTerm ? (
                 <View style={styles.searchResultsContainer}>
                     <Text style={styles.searchResultsTitle}>Results for {searchTerm}</Text>
-                    {/* Display search results based on searchTerm */}
-                    <Text style={styles.searchResultsText}>Showing results for {searchTerm}. (Replace with actual search results)</Text>
+                    <View>
+                        {recipes.length > 0 ? (
+                            recipes.map((recipe, index) => (
+                                <Text key={index}>{recipe.strMeal}</Text>
+                            ))
+                        ) : (
+                            <Text>No recipes found.</Text>
+                        )}
+                    </View>
                 </View>
             ) : (
                 <View>
@@ -161,8 +176,5 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
-    },
-    searchResultsText: {
-        fontSize: 16,
     },
 });

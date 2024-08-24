@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text, View, FlatList, Image, Pressable } from 'react-native';
 import PropTypes from 'prop-types';
-import { generateRecipes } from '../utilities/recipes/recipeUtils';
+import { generateRecipesByOneLetter } from '../utilities/recipes/recipeUtils';
 
 export default function HomeScreen({ navigation }) {
 
     const [recipes, setRecipes] = useState([]);
 
     useEffect(() => {
-        generateRecipes("g", setRecipes);
+        generateRecipesByOneLetter("g", setRecipes);
     }, []);
 
     function onPressOfSingleRecipe(recipeID) {

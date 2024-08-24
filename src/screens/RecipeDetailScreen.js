@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, ActivityIndicator, ScrollView } from 'react-native';
 import PropTypes from 'prop-types';
-import { generateRecipe } from '../utilities/recipes/recipeUtils';
+import { generateRecipeByID } from '../utilities/recipes/recipeUtils';
 
 export default function RecipeDetailScreen({ route, navigation }) {
     const { recipeID } = route.params;
@@ -14,7 +14,7 @@ export default function RecipeDetailScreen({ route, navigation }) {
 
     // Change header name whenever recipeID is changed
     useEffect(() => {
-        generateRecipe(recipeID, (fetchedRecipe) => {
+        generateRecipeByID(recipeID, (fetchedRecipe) => {
             setRecipe(fetchedRecipe);
             navigation.setOptions({ title: fetchedRecipe.strMeal }); // Set the header title to recipe name
         });

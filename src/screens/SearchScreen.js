@@ -3,7 +3,18 @@ import { StyleSheet, ScrollView, Text, View, Pressable } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { generateRecipesByAWord } from '../utilities/recipes/recipeUtils';
 
+//Delete later (only for lab2)
+import { Dimensions } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
+//////////
+
 export default function SearchScreen() {
+
+    //Delete later only for lab2
+    const windowWidth = Dimensions.get('window').width;
+    const windowHeight = Dimensions.get('window').height;
+    ///////////
+
     const route = useRoute();
     const { searchTerm } = route.params || {}; // Default to empty if not found
 
@@ -43,6 +54,15 @@ export default function SearchScreen() {
                                 ]}
                             >
                                 <Text>Ett</Text>
+                                {/*Delete below later only for lab2*/}
+                                <Text>{windowHeight}</Text>
+                                <Text>{windowWidth}</Text>
+                                <LinearGradient
+                                    // Background Linear Gradient
+                                    colors={['rgba(0,0,0,0.8)', 'transparent']}
+                                    style={styles.background}
+                                />
+                                {/*Delete above later only for lab2*/}
                             </Pressable>
                             <Pressable
                                 onPress={() => { alert('Två') }}
@@ -176,5 +196,12 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold',
         marginBottom: 10,
+    },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: 300,
     },
 });
